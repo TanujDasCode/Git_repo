@@ -1,8 +1,11 @@
 package com.weather.weather.api;
 
 import com.weather.weather.domain.Weather;
+import com.weather.weather.domain.WeatherResponse;
 import com.weather.weather.services.WeatherService;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.ehcache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +25,7 @@ public class WeatherController {
             @RequestParam(name = "searchQuery") String searchQuery
     ) {
         try {
-            Weather weather = weatherService.getWeather(searchQuery);
+            WeatherResponse weather = weatherService.getWeather(searchQuery);
             return ResponseEntity.status(HttpStatus.OK).body(weather);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
